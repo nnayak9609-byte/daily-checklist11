@@ -1,55 +1,66 @@
-body {
-  margin:0;
-  font-family: Arial;
-  background:#0f172a;
-  color:white;
-}
+document.addEventListener('DOMContentLoaded', () => {
 
-header {
-  text-align:center;
-  padding:15px;
-  background:linear-gradient(90deg,#6366f1,#22c55e);
-}
+    const ctx = document.getElementById('studyProgressChart').getContext('2d');
 
-.container {
-  padding:20px;
-}
+    const studyChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['M1','M2','E1','E2','N1','N2','OFF','GENERAL'],
+            datasets: [{
+                label: 'Hours Completed',
+                data: [0,0,0,0,0,0,0,0],
+                backgroundColor: '#004085'
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true, max: 12 }
+            }
+        }
+    });
 
-.grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-  gap:15px;
-}
+    const checkboxes = document.querySelectorAll('.tracker');
 
-.shift {
-  background:#111827;
-  padding:10px;
-  border-radius:10px;
-}
+    function updateView() {
 
-.task {
-  display:flex;
-  gap:5px;
-  margin:5px 0;
-}
+        let data = {
+            m1:0, m2:0,
+            e1:0, e2:0,
+            n1:0, n2:0,
+            off:0, general:0
+        };
 
-input {
-  flex:1;
-  padding:5px;
-}
+        checkboxes.forEach((box, index) => {
 
-button {
-  margin-top:5px;
-  background:#f59e0b;
-  border:none;
-  padding:5px;
-  border-radius:6px;
-  cursor:pointer;
-}
+            const shift = box.dataset.shift;
 
-.chart-box {
-  margin-top:20px;
-  background:#111827;
-  padding:10px;
-  border-radius:10px;
-}
+            if (box.checked) {
+                data[shift] += parseFloat(box.dataset.hours || 0);
+            }
+
+            localStorage.setItem('task-' + index, box.checked);
+        });
+
+        studyChart.data.datasets[0].data = [
+            data.m1,
+            data.m2,
+            data.e1,
+            data.e2,
+            data.n1,
+            data.n2,
+            data.off,
+            data.general
+        ];
+
+        studyChart.update();
+    }
+
+    checkboxes.forEach((box, index) => {
+        const saved = localStorage.getItem('task-' + index);
+        if (saved === 'true') box.checked = true;
+
+        box.addEventListener('change', updateView);
+    });
+
+    updateView();
+});

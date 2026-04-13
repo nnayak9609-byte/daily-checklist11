@@ -1,64 +1,55 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const ctx = document.getElementById('progressChart').getContext('2d');
-    
-    // Initialize Chart
-    const progressChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Morning', 'Evening', 'Night 1', 'Night 2', 'Off Day'],
-            datasets: [{
-                label: 'Study Hours Completed',
-                data: [0, 0, 0, 0, 0],
-                backgroundColor: '#0056b3',
-                borderColor: '#003d7a',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: { y: { beginAtZero: true, max: 10 } }
-        }
-    });
+body {
+  margin:0;
+  font-family: Arial;
+  background:#0f172a;
+  color:white;
+}
 
-    const checkboxes = document.querySelectorAll('.task-check');
+header {
+  text-align:center;
+  padding:15px;
+  background:linear-gradient(90deg,#6366f1,#22c55e);
+}
 
-    // Function to calculate and update graph
-    function updateProgress() {
-        let shiftData = [0, 0, 0, 0, 0]; // Corresponds to the 5 shifts in the graph
-        
-        checkboxes.forEach((box, index) => {
-            if (box.checked && box.dataset.hours) {
-                // Determine which shift this box belongs to
-                const shiftIndex = getShiftIndex(box);
-                shiftData[shiftIndex] += parseFloat(box.dataset.hours);
-            }
-            // Save state to LocalStorage
-            localStorage.setItem(`task-${index}`, box.checked);
-        });
+.container {
+  padding:20px;
+}
 
-        progressChart.data.datasets[0].data = shiftData;
-        progressChart.update();
-    }
+.grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+}
 
-    // Helper to find which section the checkbox is in
-    function getShiftIndex(box) {
-        const section = box.closest('.shift-section');
-        const h2 = section.querySelector('h2').innerText;
-        if (h2.includes('Morning')) return 0;
-        if (h2.includes('Evening')) return 1;
-        if (h2.includes('Night Shift (1st)')) return 2;
-        if (h2.includes('Night Shift (2nd)')) return 3;
-        if (h2.includes('Off Day')) return 4;
-        return 0;
-    }
+.shift {
+  background:#111827;
+  padding:10px;
+  border-radius:10px;
+}
 
-    // Load saved data and attach events
-    checkboxes.forEach((box, index) => {
-        const savedState = localStorage.getItem(`task-${index}`);
-        if (savedState === 'true') box.checked = true;
-        
-        box.addEventListener('change', updateProgress);
-    });
+.task {
+  display:flex;
+  gap:5px;
+  margin:5px 0;
+}
 
-    // Initial graph update
-    updateProgress();
-});
+input {
+  flex:1;
+  padding:5px;
+}
+
+button {
+  margin-top:5px;
+  background:#f59e0b;
+  border:none;
+  padding:5px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.chart-box {
+  margin-top:20px;
+  background:#111827;
+  padding:10px;
+  border-radius:10px;
+}

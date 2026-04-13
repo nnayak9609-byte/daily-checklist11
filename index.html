@@ -1,40 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>8 Shift Daily Tracker</title>
-
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Schedule Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
 
-<header>
-  <h2>📊 8 Shift Daily Tracker</h2>
-</header>
+<div class="pdf-wrapper">
 
-<div class="container">
+    <div class="header-section">
+        <h1>Study Schedule</h1>
+        <p>Single Page Edition</p>
+    </div>
 
-<div class="grid">
+    <div class="dashboard-card">
+        <h3>Daily Study Progress</h3>
+        <canvas id="studyProgressChart"></canvas>
+    </div>
 
-  <div class="shift"><h3>M1</h3><div id="m1"></div><button onclick="add('m1')">+ Add</button></div>
-  <div class="shift"><h3>M2</h3><div id="m2"></div><button onclick="add('m2')">+ Add</button></div>
+    <!-- 🌅 MORNING SHIFT M1 -->
+    <section class="shift-section">
+        <h2>1. Morning Shift (M1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Session</th>
+                    <th>Time Block</th>
+                    <th>Duration</th>
+                    <th>Done</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Office Study</td>
+                    <td>07:00 AM - 11:00 AM</td>
+                    <td>3 hrs</td>
+                    <td><input type="checkbox" class="tracker" data-shift="m1" data-hours="3"></td>
+                </tr>
+                <tr>
+                    <td>Study Session</td>
+                    <td>11:30 AM - 02:00 PM</td>
+                    <td>2.5 hrs</td>
+                    <td><input type="checkbox" class="tracker" data-shift="m1" data-hours="2.5"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
-  <div class="shift"><h3>E1</h3><div id="e1"></div><button onclick="add('e1')">+ Add</button></div>
-  <div class="shift"><h3>E2</h3><div id="e2"></div><button onclick="add('e2')">+ Add</button></div>
+    <!-- 🌅 MORNING SHIFT M2 -->
+    <section class="shift-section">
+        <h2>2. Morning Shift (M2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Session</th>
+                    <th>Time Block</th>
+                    <th>Duration</th>
+                    <th>Done</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Revision</td>
+                    <td>03:00 PM - 05:00 PM</td>
+                    <td>2 hrs</td>
+                    <td><input type="checkbox" class="tracker" data-shift="m2" data-hours="2"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
-  <div class="shift"><h3>N1</h3><div id="n1"></div><button onclick="add('n1')">+ Add</button></div>
-  <div class="shift"><h3>N2</h3><div id="n2"></div><button onclick="add('n2')">+ Add</button></div>
+    <!-- 🌆 EVENING SHIFT E1 -->
+    <section class="shift-section">
+        <h2>3. Evening Shift (E1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Session</th>
+                    <th>Time Block</th>
+                    <th>Duration</th>
+                    <th>Done</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Study Session</td>
+                    <td>05:30 PM - 08:00 PM</td>
+                    <td>2.5 hrs</td>
+                    <td><input type="checkbox" class="tracker" data-shift="e1" data-hours="2.5"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
-  <div class="shift"><h3>OFF</h3><div id="off"></div><button onclick="add('off')">+ Add</button></div>
-  <div class="shift"><h3>GENERAL</h3><div id="g"></div><button onclick="add('g')">+ Add</button></div>
+    <!-- 🌆 EVENING SHIFT E2 -->
+    <section class="shift-section">
+        <h2>4. Evening Shift (E2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Session</th>
+                    <th>Time Block</th>
+                    <th>Duration</th>
+                    <th>Done</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Night Study</td>
+                    <td>08:30 PM - 11:00 PM</td>
+                    <td>2.5 hrs</td>
+                    <td><input type="checkbox" class="tracker" data-shift="e2" data-hours="2.5"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
-</div>
-
-<div class="chart-box">
-<canvas id="chart"></canvas>
-</div>
+    <div class="footer-note">Study Schedule - Single Page Edition</div>
 
 </div>
 

@@ -1,112 +1,71 @@
-
-let today = new Date().toISOString().split("T")[0];
-
-let shifts = ["m1","m2","e1","e2","n1","n2","off","g"];
-
-let data = JSON.parse(localStorage.getItem("shift8")) || {};
-
-if(!data[today]){
-  data[today]={};
-  shifts.forEach(s=>data[today][s]=[]);
+:root {
+    --primary-blue: #004085;
+    --border-dark: #212529;
 }
 
-function save(){
-  localStorage.setItem("shift8",JSON.stringify(data));
+body {
+    background-color: #e9ecef;
+    font-family: 'Times New Roman', serif;
+    margin: 0;
+    padding: 20px;
 }
 
-/* ADD */
-function add(shift){
-  data[today][shift].push({
-    text:"Task",
-    hours:1,
-    done:false
-  });
-
-  save();
-  render();
+.pdf-wrapper {
+    background: white;
+    max-width: 900px;
+    margin: auto;
+    padding: 40px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
-/* TOGGLE */
-function toggle(shift,i){
-  data[today][shift][i].done =
-    !data[today][shift][i].done;
-
-  save();
-  render();
+.header-section {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-/* DELETE */
-function del(shift,i){
-  data[today][shift].splice(i,1);
-  save();
-  render();
+h1 {
+    color: var(--primary-blue);
+    font-size: 28px;
+    text-decoration: underline;
 }
 
-/* RENDER */
-function render(){
-
-  shifts.forEach(s=>{
-    let box=document.getElementById(s);
-    box.innerHTML="";
-
-    data[today][s].forEach((t,i)=>{
-      box.innerHTML+=`
-        <div class="task">
-
-          <input type="checkbox"
-          ${t.done?"checked":""}
-          onclick="toggle('${s}',${i})">
-
-          <input value="${t.text}"
-          onchange="t.text=this.value">
-
-          <input type="number" style="width:60px"
-          value="${t.hours}"
-          onchange="t.hours=this.value">
-
-          <button onclick="del('${s}',${i})">❌</button>
-
-        </div>
-      `;
-    });
-  });
-
-  updateChart();
+.dashboard-card {
+    border: 1px solid var(--primary-blue);
+    padding: 20px;
+    margin-bottom: 30px;
 }
 
-/* GRAPH */
-let chart;
-
-function updateChart(){
-
-  let values = shifts.map(s=>{
-    return data[today][s]
-      .filter(t=>t.done)
-      .reduce((a,b)=>a+b.hours,0);
-  });
-
-  if(chart) chart.destroy();
-
-  chart = new Chart(document.getElementById("chart"),{
-    type:"bar",
-    data:{
-      labels:["M1","M2","E1","E2","N1","N2","OFF","GENERAL"],
-      datasets:[{
-        label:"Study Hours",
-        data:values,
-        backgroundColor:[
-          "#22c55e",
-          "#86efac",
-          "#f59e0b",
-          "#ef4444",
-          "#3b82f6",
-          "#a855f7",
-          "#64748b",
-          "#14b8a6"
-        ]
-      }]
-    }
-  });
+h2 {
+    background: var(--primary-blue);
+    color: white;
+    padding: 8px 15px;
+    font-size: 18px;
+    margin-top: 30px;
 }
 
-render();
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid var(--border-dark);
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #f2f2f2;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.3);
+}
+
+.footer-note {
+    text-align: right;
+    margin-top: 40px;
+    font-style: italic;
+    color: #6c757d;
+}

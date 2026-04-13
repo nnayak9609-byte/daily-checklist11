@@ -1,100 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Study Tracker - PDF Edition</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+<title>8 Shift Daily Tracker</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-<div class="pdf-container">
-    <header>
-        <h1>Study Schedule</h1>
-        <p class="subtitle">Single Page Edition</p>
-    </header>
+<header>
+  <h2>📊 8 Shift Daily Tracker</h2>
+</header>
 
-    <div class="dashboard">
-        <h3>Daily Progress Graph</h3>
-        <canvas id="progressChart"></canvas>
-    </div>
+<div class="container">
 
-    <section class="shift-section">
-        <h2>1. Morning Shift (Day 1 & 2)</h2>
-        <table>
-            <thead>
-                <tr><th>Session</th><th>Time Block</th><th>Duration</th><th class="check-col">Done</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Office (Study)</td><td>07:00 AM - 02:00 PM</td><td>3 hrs</td><td><input type="checkbox" class="task-check" data-hours="3"></td></tr>
-                <tr><td>Study 1</td><td>05:30 PM - 08:30 PM</td><td>3 hrs</td><td><input type="checkbox" class="task-check" data-hours="3"></td></tr>
-                <tr><td>Study 2</td><td>09:30 PM - 11:00 PM</td><td>1.5 hrs</td><td><input type="checkbox" class="task-check" data-hours="1.5"></td></tr>
-                <tr><td>Sleep</td><td>11:00 PM - 06:00 AM</td><td>7 hrs</td><td><input type="checkbox" class="task-check" data-hours="0"></td></tr>
-            </tbody>
-        </table>
-    </section>
+<div class="grid">
 
-    <section class="shift-section">
-        <h2>2. Evening Shift (Day 3 & 4)</h2>
-        <table>
-            <thead>
-                <tr><th>Session</th><th>Time Block</th><th>Duration</th><th class="check-col">Done</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Study 1</td><td>06:00 AM - 08:30 AM</td><td>2.5 hrs</td><td><input type="checkbox" class="task-check" data-hours="2.5"></td></tr>
-                <tr><td>Study 2</td><td>09:00 AM - 12:30 PM</td><td>3.5 hrs</td><td><input type="checkbox" class="task-check" data-hours="3.5"></td></tr>
-                <tr><td>Office (Study)</td><td>02:00 PM - 10:00 PM</td><td>3 hrs</td><td><input type="checkbox" class="task-check" data-hours="3"></td></tr>
-                <tr><td>Study 3</td><td>10:30 PM - 12:00 AM</td><td>1.5 hrs</td><td><input type="checkbox" class="task-check" data-hours="1.5"></td></tr>
-            </tbody>
-        </table>
-    </section>
+  <div class="shift"><h3>M1</h3><div id="m1"></div><button onclick="add('m1')">+ Add</button></div>
+  <div class="shift"><h3>M2</h3><div id="m2"></div><button onclick="add('m2')">+ Add</button></div>
 
-    <section class="shift-section">
-        <h2>3. Night Shift (1st)</h2>
-        <table>
-            <thead>
-                <tr><th>Session</th><th>Time Block</th><th>Dur. D</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Study 1</td><td>06:00 AM - 08:30 AM</td><td>2.5h</td></tr>
-                <tr><td>Study 2</td><td>09:00 AM - 01:30 PM</td><td>4.5h</td></tr>
-                <tr><td>Sleep</td><td>02:00 PM - 07:00 PM</td><td>5h</td></tr>
-                <tr><td>Study 3</td><td>07:00 PM - 09:00 PM</td><td>2h</td></tr>
-                <tr><td>Office (S)</td><td>10:00 PM - 07:00 AM</td><td>3h</td></tr>
-            </tbody>
-        </table>
-    </section>
+  <div class="shift"><h3>E1</h3><div id="e1"></div><button onclick="add('e1')">+ Add</button></div>
+  <div class="shift"><h3>E2</h3><div id="e2"></div><button onclick="add('e2')">+ Add</button></div>
 
-    <section class="shift-section">
-        <h2>4. Night Shift (2nd)</h2>
-        <table>
-            <thead>
-                <tr><th>Session</th><th>Time Block</th><th>Dur.</th><th class="check-col">D</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Sleep</td><td>07:30 AM - 01:00 PM</td><td>5.5h</td><td><input type="checkbox" class="task-check"></td></tr>
-                <tr><td>Study 1</td><td>02:00 PM - 05:00 PM</td><td>3h</td><td><input type="checkbox" class="task-check" data-hours="3"></td></tr>
-                <tr><td>Study 2</td><td>06:30 PM - 09:00 PM</td><td>2.5h</td><td><input type="checkbox" class="task-check" data-hours="2.5"></td></tr>
-                <tr><td>Office (S)</td><td>10:00 PM - 07:00 AM</td><td>3h</td><td><input type="checkbox" class="task-check" data-hours="3"></td></tr>
-            </tbody>
-        </table>
-    </section>
+  <div class="shift"><h3>N1</h3><div id="n1"></div><button onclick="add('n1')">+ Add</button></div>
+  <div class="shift"><h3>N2</h3><div id="n2"></div><button onclick="add('n2')">+ Add</button></div>
 
-    <section class="shift-section">
-        <h2>5. Off Day</h2>
-        <table>
-            <thead>
-                <tr><th>Session</th><th>Time Block</th><th>Duration</th><th class="check-col">Done</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Study 1</td><td>03:00 PM - 06:00 PM</td><td>3 hrs</td><td><input type="checkbox" class="task-check" data-hours="3"></td></tr>
-                <tr><td>Study 2</td><td>07:00 PM - 09:30 PM</td><td>2.5 hrs</td><td><input type="checkbox" class="task-check" data-hours="2.5"></td></tr>
-            </tbody>
-        </table>
-    </section>
+  <div class="shift"><h3>OFF</h3><div id="off"></div><button onclick="add('off')">+ Add</button></div>
+  <div class="shift"><h3>GENERAL</h3><div id="g"></div><button onclick="add('g')">+ Add</button></div>
 
-    <footer class="footer-note">Study Schedule - Single Page Edition</footer>
+</div>
+
+<div class="chart-box">
+<canvas id="chart"></canvas>
+</div>
+
 </div>
 
 <script src="script.js"></script>
